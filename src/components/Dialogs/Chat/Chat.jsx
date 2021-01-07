@@ -5,8 +5,12 @@ const Chat = (props) => {
 	let path = '/dialogs/' + props.id;
 
 	return (
-		<div className={ cls.chat + ' ' + cls.active }>
-			<NavLink to={ path }>{ props.name }</NavLink>
+		<div className={ cls.chat }>
+			<NavLink 
+				to={ path } 
+				className={ cls.link }
+				activeClassName={ cls.active }
+			>{ props.name }</NavLink>
 		</div>
 	);
 }

@@ -1,14 +1,8 @@
 .navbar {
 	grid-area: n;
 	background-color: #42b166;
-	/*background-color: burlywood;*/
-}
-
-/*.nav {
-}*/
-
-.list {
 	padding: 20px;
+	/*background-color: burlywood;*/
 }
 
 .item {

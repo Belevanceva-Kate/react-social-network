@@ -4,7 +4,7 @@ import cls from './Posts.module.css';
 const Posts = (props) => {
 
 	let postElements = props.posts.map((el, i) => {
-		return <Post message={ el.message } likesCount={ el.likesCount } />
+		return <Post message={ el.message } likesCount={ el.likesCount } key={ i.toString() } />
 	});
 
 	return (

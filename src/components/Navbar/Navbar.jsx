@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import Friends from './Friends/Friends';
 import cls from './Navbar.module.css';
 
 const Navbar = (props) => {
@@ -44,6 +45,7 @@ const Navbar = (props) => {
 					</li>
 				</ul>
 			</nav>
+			<Friends friends={ props.state.friends } />
 		</aside>
 	);
 }

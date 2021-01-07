@@ -1,0 +1,12 @@
+.friends {
+	margin-top: 40px;
+}
+
+.title {
+	margin-bottom: 10px;
+}
+
+.friendsBlock {
+	display: flex;
+	flex-wrap: wrap;
+}

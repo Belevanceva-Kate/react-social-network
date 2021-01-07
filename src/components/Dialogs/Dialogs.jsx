@@ -1,13 +1,12 @@
-import { NavLink } from 'react-router-dom';
 import Chat from './Chat/Chat';
 import Message from './Message/Message';
 import cls from './Dialogs.module.css';
 
 const Dialogs = (props) => {
 
-	let dialogElements = props.dialogs.map((el, i) => <Chat name={ el.name } id={ el.id } />);
+	let dialogElements = props.state.dialogs.map((el, i) => <Chat name={ el.name } id={ el.id } key={ i.toString() } />);
 
-	let messageElements = props.messages.map((el, i) => <Message message={ el.message } />);
+	let messageElements = props.state.messages.map((el, i) => <Message message={ el.message } key={ i.toString() } isMine={ Math.round(Math.random()) } />);
 
 	return (
 		<div className={ cls.dialogs }>

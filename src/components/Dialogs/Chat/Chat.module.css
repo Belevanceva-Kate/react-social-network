@@ -1,5 +1,14 @@
 .chat {}
 
-.chat.active {
+.link {
+	color: #000;
+	text-decoration: none;
+}
+
+.link.active {
 	color: gold;
 }
+
+/*.chat.active {
+	color: gold;
+}*/
