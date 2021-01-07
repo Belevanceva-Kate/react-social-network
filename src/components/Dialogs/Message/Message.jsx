@@ -1,11 +1,11 @@
 import cls from './Message.module.css';
 
-const Message = () => {
+const Message = (props) => {
 	return (
-		<div>
-			Message
+		<div className={ cls.message }>
+			{ props.message }
 		</div>
-	)
+	);
 }
 
 export default Message;

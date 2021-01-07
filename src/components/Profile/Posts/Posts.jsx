@@ -1,14 +1,9 @@
 import Post from './Post/Post';
-import cls from './MyPosts.module.css';
+import cls from './Posts.module.css';
 
-const MyPosts = () => {
+const Posts = (props) => {
 
-	let posts = [
-		{ id: 1, message: 'Hi! How are you?i', likesCount: 0 },
-		{ id: 2, message: 'It`s my first post', likesCount: 20 },
-	];
-
-	let postElements = posts.map((el, i) => {
+	let postElements = props.posts.map((el, i) => {
 		return <Post message={ el.message } likesCount={ el.likesCount } />
 	});
 
@@ -29,4 +24,4 @@ const MyPosts = () => {
 	);
 }
 
-export default MyPosts;
+export default Posts;

@@ -7,14 +7,6 @@
 	padding: 20px;
 }
 
-.chat {}
-
-.chat.active {
-	color: gold;
-}
-
 .messages {
 	padding: 20px;
 }
-
-.message {}
