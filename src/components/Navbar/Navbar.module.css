@@ -1,0 +1,33 @@
+.navbar {
+	grid-area: n;
+	background-color: #42b166;
+	/*background-color: burlywood;*/
+}
+
+/*.nav {
+}*/
+
+.list {
+	padding: 20px;
+}
+
+.item {
+	list-style-type: none;
+}
+
+.item:not(:last-of-type) {
+	margin-bottom: 5px;
+}
+
+/*.item.active .link {
+	color: gold;
+}
+*/
+.link {
+	color: #fff;
+	text-decoration: none;
+}
+
+.link.active {
+	color: gold;
+}
