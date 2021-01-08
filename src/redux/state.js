@@ -62,18 +62,17 @@ export let updateNewPostContent = (postContent) => {
 
 export let addMessage = () => {
 	let item = {
-		id: 3, 
-		message: state.profile.newPostContent, 
-		likesCount: 0,
-	};
-	state.profile.posts.push(item);
-	state.profile.newPostContent = '';
+		id: 5, 
+		message: state.dialogs.newMessageContent,
+	}
+	state.dialogs.messages.push(item);
+	state.dialogs.newMessageContent = '';
 	rerenderEntireTree(state);
-};
+}
 
-export let updateNewMessageContent = (messsageContent) => {
-	state.dialogs.newMessageContent = messsageContent;
+export let updateNewMessageContent = (messageContent) => {
+	state.dialogs.newMessageContent = messageContent;
 	rerenderEntireTree(state);
-};
+}
 
 export default state;

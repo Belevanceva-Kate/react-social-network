@@ -17,17 +17,19 @@ const Dialogs = (props) => {
 		<Message 
 			message={ el.message } 
 			key={ i.toString() } 
-			isMine={ Math.round(Math.random()) } 
-			addMessage={ props.addMessage }
-			updateNewMessageContent={ props.updateNewMessageContent }
+			isMine={ Math.round(Math.random()) }
 		/>
 	);
 
 	let newMessageElement = React.createRef();
 
 	let addMessage = () => {
-		let text = newMessageElement.current.value;
-		console.log(text);
+		props.addMessage();
+	}
+
+	let updatePostContent = () => {
+		let text = newMessageElement.current.value
+		props.updateNewMessageContent(text);
 	}
 
 	return (
@@ -40,7 +42,12 @@ const Dialogs = (props) => {
 					{ messageElements }
 				</div>
 				<div className={ cls.form }>
-					<textarea ref={ newMessageElement } rows={ 4 }></textarea>
+					<textarea 
+						ref={ newMessageElement } 
+						rows={ 4 } 
+						onChange={ updatePostContent } 
+						value={ props.state.newMessageContent }
+					/>
 					<br />
 					<button onClick={ addMessage }>Send</button>
 				</div>

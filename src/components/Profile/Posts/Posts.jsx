@@ -11,10 +11,7 @@ const Posts = (props) => {
 	let newPostElement = React.createRef();
 
 	let addPost = () => {
-		// var text = newPostElement.current.value;
-		// props.addPost(text);
 		props.addPost();
-		// props.updateNewPostContent('');
 	};
 
 	let updatePostContent = () => {
@@ -28,6 +25,7 @@ const Posts = (props) => {
 			<div className={ cls.form }>
 				<textarea 
 					ref={ newPostElement } 
+					rows={ 4 } 
 					onChange={ updatePostContent } 
 					value={ props.newPostContent } 
 				/>
