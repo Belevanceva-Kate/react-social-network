@@ -1,4 +1,4 @@
-import cls from './Music.module.css';
+// import cls from './Music.module.css';
 
 const Music = () => {
 	return (

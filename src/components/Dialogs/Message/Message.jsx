@@ -2,11 +2,11 @@ import cls from './Message.module.css';
 
 const Message = (props) => {
 	
-	let isMine = props.isMine ? cls.mine : cls.yours;
+	let whoseMssage = props.isMine ? cls.mine : cls.yours;
 
 	return (
-		<div className={ cls.message }>
-			<div className={ cls.content + ' ' + isMine }>
+		<div className={ cls.message + ' ' + whoseMssage }>
+			<div className={ cls.content + ' ' + whoseMssage }>
 				{ props.message }
 			</div>
 		</div>

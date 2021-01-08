@@ -1,14 +1,37 @@
 .dialogs {
 	display: grid;
 	grid-template-columns: 2fr 10fr;
+	padding: 20px;
 }
 
 .chats {
-	padding: 20px;
+	/*margin-right: 10px;*/
+	padding-right: 10px;
+	/*padding: 20px;*/
+}
+
+.content {
+	/*margin-left: 10px;*/
+	padding-left: 10px;
 }
 
 .messages {
-	padding: 20px;
+	/*padding: 20px;*/
 	display: flex;
 	flex-direction: column;
+}
+
+.form {
+	margin-top: 20px;
+}
+
+.form textarea {
+	width: 100%;
+}
+
+.form button {
+	display: block;
+	margin: 0 auto;
+	padding: 5px;
+	min-width: 100px;
 }

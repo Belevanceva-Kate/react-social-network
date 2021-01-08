@@ -1,3 +1,4 @@
+import React from 'react';
 import Post from './Post/Post';
 import cls from './Posts.module.css';
 
@@ -7,13 +8,31 @@ const Posts = (props) => {
 		return <Post message={ el.message } likesCount={ el.likesCount } key={ i.toString() } />
 	});
 
+	let newPostElement = React.createRef();
+
+	let addPost = () => {
+		// var text = newPostElement.current.value;
+		// props.addPost(text);
+		props.addPost();
+		// props.updateNewPostContent('');
+	};
+
+	let updatePostContent = () => {
+		var text = newPostElement.current.value;
+		props.updateNewPostContent(text);
+	};
+
 	return (
 		<div className={ cls.postsBlock }>
 			<h3>My posts</h3>	
 			<div className={ cls.form }>
-				<textarea></textarea>
+				<textarea 
+					ref={ newPostElement } 
+					onChange={ updatePostContent } 
+					value={ props.newPostContent } 
+				/>
 				<br />
-				<button>Send</button>
+				<button onClick={ addPost }>Add post</button>
 			</div>
 			<div className={ cls.posts }>
 				<ul className={ cls.list }>

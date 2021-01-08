@@ -1,4 +1,4 @@
-import cls from './Settings.module.css';
+// import cls from './Settings.module.css';
 
 const Settings = () => {
 	return (
