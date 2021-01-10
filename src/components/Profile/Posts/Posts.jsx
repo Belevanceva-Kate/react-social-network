@@ -1,5 +1,5 @@
-import React from 'react';
 import Post from './Post/Post';
+import { actionCreatorAddPost, actionCreatorUpdateNewPostContent } from '../../../redux/state';
 import cls from './Posts.module.css';
 
 const Posts = (props) => {
@@ -8,23 +8,20 @@ const Posts = (props) => {
 		return <Post message={ el.message } likesCount={ el.likesCount } key={ i.toString() } />
 	});
 
-	let newPostElement = React.createRef();
-
 	let addPost = () => {
-		props.addPost();
+		props.dispatch(actionCreatorAddPost());
 	};
 
-	let updatePostContent = () => {
-		var text = newPostElement.current.value;
-		props.updateNewPostContent(text);
+	let updatePostContent = (e) => {
+		var text = e.target.value;
+		props.dispatch(actionCreatorUpdateNewPostContent(text));
 	};
 
 	return (
 		<div className={ cls.postsBlock }>
 			<h3>My posts</h3>	
 			<div className={ cls.form }>
-				<textarea 
-					ref={ newPostElement } 
+				<textarea
 					rows={ 4 } 
 					onChange={ updatePostContent } 
 					value={ props.newPostContent } 

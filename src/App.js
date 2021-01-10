@@ -14,26 +14,23 @@ const App = (props) => {
 			<Header />
 			<Navbar state={ props.state.sidebar } />
 			<main className='app-wrapper-content'>
-				<Route 
-					path='/profile' 
-					render={ () => 
-						<Profile 
-							state={ props.state.profile } 
-							addPost={ props.addPost } 
-							updateNewPostContent={ props.updateNewPostContent } 
-						/> 
+				<Route
+					path='/profile'
+					render={ () =>
+						<Profile
+							state={ props.state.profile }
+							dispatch={ props.dispatch }
+						/>
 					}
 				/>
-				<Route 
-					path='/dialogs' 
-					render={ () => 
-						<Dialogs 
-							state={ props.state.dialogs } 
-							addMessage={ props.addMessage }
-							updateNewMessageContent={ props.updateNewMessageContent }
-						/> 
-					}
+				<Route
+					path='/dialogs'
+					render={ () => <Dialogs store={ props.store } /> }
 				/>
+				{/*<Dialogs
+					state={ props.state.dialogs }
+					dispatch={ props.dispatch }
+				/>*/}
 				<Route path='/news' component={ News } />
 				<Route path='/music' component={ Music } />
 				<Route path='/settings' component={ Settings } />
