@@ -1,5 +1,5 @@
 import Post from './Post/Post';
-import { actionCreatorAddPost, actionCreatorUpdateNewPostContent } from '../../../redux/state';
+import { actionCreatorAddPost, actionCreatorUpdateNewPostContent } from '../../../redux/reducers/profile';
 import cls from './Posts.module.css';
 
 const Posts = (props) => {

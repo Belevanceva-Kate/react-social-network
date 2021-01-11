@@ -1,6 +1,6 @@
 import Chat from './Chat/Chat';
 import Message from './Message/Message';
-import { actionCreatorAddMessage, actionCreatorUpdateNewMessageContent } from '../../redux/state';
+import { actionCreatorAddMessage, actionCreatorUpdateNewMessageContent } from '../../redux/reducers/dialogs';
 import cls from './Dialogs.module.css';
 
 const Dialogs = (props) => {
