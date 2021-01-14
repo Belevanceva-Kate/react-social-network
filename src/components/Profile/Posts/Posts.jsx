@@ -1,5 +1,4 @@
 import Post from './Post/Post';
-import { actionCreatorAddPost, actionCreatorUpdateNewPostContent } from '../../../redux/reducers/profile';
 import cls from './Posts.module.css';
 
 const Posts = (props) => {
@@ -9,12 +8,12 @@ const Posts = (props) => {
 	});
 
 	let addPost = () => {
-		props.dispatch(actionCreatorAddPost());
+		props.addPost();
 	};
 
 	let updatePostContent = (e) => {
-		var text = e.target.value;
-		props.dispatch(actionCreatorUpdateNewPostContent(text));
+		let text = e.target.value;
+		props.updateNewPostText(text);
 	};
 
 	return (
