@@ -6,7 +6,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 // import store from './redux/store';
 import store from './redux/redux-store';
-import { Provider } from './StoreContext';
+import {Provider} from "react-redux";
+// import { Provider } from './StoreContext';
 
 export let rerenderEntireTree = (state) => {
 	ReactDOM.render(
