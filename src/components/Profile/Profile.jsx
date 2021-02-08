@@ -1,4 +1,4 @@
-import Posts from './Posts/Posts';
+// import Posts from './Posts/Posts';
 import PostsContainer from './Posts/PostsContainer';
 import Info from './Info/Info';
 import cls from './Profile.module.css';
