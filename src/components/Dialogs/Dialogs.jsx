@@ -8,14 +8,16 @@ const Dialogs = (props) => {
 		<Chat
 			name={ el.name }
 			id={ el.id }
-			key={ i.toString() }
+			// key={ i.toString() }
+			key={ el.id }
 		/>
 	);
 
 	let messageElements = props.dialogs.messages.map((el, i) =>
 		<Message
 			message={ el.message }
-			key={ i.toString() }
+			key={ el.id }
+			// key={ i.toString() }
 			isMine={ Math.round(Math.random()) }
 		/>
 	);

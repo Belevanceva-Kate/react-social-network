@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-// import Friends from './Friends/Friends';
 import FriendsContainer from "./Friends/FriendsContainer";
 import cls from './Navbar.module.css';
 
@@ -38,6 +37,13 @@ const Navbar = (props) => {
 						>Music</NavLink>
 					</li>
 					<li className={ cls.item }>
+						<NavLink
+							to='/users'
+							className={ cls.link }
+							activeClassName={ cls.active }
+						>Users</NavLink>
+					</li>
+					<li className={ cls.item }>
 						<NavLink 
 							to='/settings'
 							className={ cls.link } 
@@ -47,7 +53,6 @@ const Navbar = (props) => {
 				</ul>
 			</nav>
 			<FriendsContainer />
-			{/*<Friends friends={ props.state.friends } />*/}
 		</aside>
 	);
 }

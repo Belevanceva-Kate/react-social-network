@@ -4,10 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import store from './redux/store';
 import store from './redux/redux-store';
 import {Provider} from "react-redux";
-// import { Provider } from './StoreContext';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -15,11 +13,6 @@ ReactDOM.render(
 			<Provider store={ store }>
 				<App />
 			</Provider>
-			{/*<App
-				state={ state }
-				dispatch={ store.dispatch.bind(store) }
-				store={ store }
-			/>*/}
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
