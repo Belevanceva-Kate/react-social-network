@@ -1,3 +1,56 @@
+import React from 'react';
+import * as axios from 'axios';
+import avatar from '../../assets/images/user.png';
+import cls from './Users.module.css';
+
+class Users extends React.Component {
+
+    componentDidMount() {
+        this.getUsers();
+    }
+
+    getUsers = () => {
+        axios
+            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                console.log(response);
+                this.props.setUsers(response.data.items);
+            });
+    }
+
+    render() {
+        return (
+            <div className={ cls.users }>
+                { this.props.users.map((el, i) => {
+                    return <div className={ cls.user } key={ el.id }>
+                        <div className={ cls.info }>
+                            <div className={ cls.image }>
+                                <img src={ el.photos.small != null ? el.photos.small : avatar } alt='' />
+                            </div>
+                            { el.followed
+                                ? <button onClick={ () => this.props.unfollow(el.id) }>Unfollow</button>
+                                : <button onClick={ () => this.props.follow(el.id) }>Follow</button>
+                            }
+                        </div>
+                        <div className={ cls.content }>
+                            <div className={ cls.name }>{ el.name }</div>
+                            <div className={ cls.status }>{ el.status }</div>
+                        </div>
+                        <div className={ cls.location }>
+                            <p className={ cls.country }>{ 'el.location.country' }</p>
+                            <p className={ cls.city }>{ 'el.location.city' }</p>
+                        </div>
+                    </div>
+                }) }
+            </div>
+        );
+    }
+}
+
+export default Users;
+
+
+/*
 import * as axios from 'axios';
 // import User from './User/User';
 import avatar from '../../assets/images/user.png';
@@ -5,7 +58,7 @@ import cls from './Users.module.css';
 
 const Users = (props) => {
 
-    /*let userElements = props.users.map((el, i) => {
+    /!*let userElements = props.users.map((el, i) => {
        return <User
            key={ el.id }
            img={ el.img }
@@ -15,7 +68,7 @@ const Users = (props) => {
            country={ el.location.country }
            city={ el.location.city }
        />
-    });*/
+    });*!/
 
     let getUsers = () => {
         if (props.users.length === 0) {
@@ -69,4 +122,4 @@ const Users = (props) => {
     );
 }
 
-export default Users;
+export default Users;*/
