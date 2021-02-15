@@ -1,4 +1,73 @@
-import React from 'react';
+import avatar from '../../assets/images/user.png';
+import cls from './Users.module.css';
+
+let Users = (props) => {
+
+    let pagesCount = Math.ceil(props.totalCount / props.pageSize);
+    let pagesCount2 = 0;
+
+    pagesCount > 10 ? pagesCount2 = 10 : pagesCount2 = pagesCount;
+
+    let pages = [];
+
+    // for (let i = 1; i <= pagesCount; i++) {
+    for (let i = 1; i <= pagesCount2; i++) {
+        pages.push(i);
+    }
+
+    return (
+        <div className={ cls.users }>
+            <div className={ cls.pagination }>
+                <ul className={ cls.pagination__list }>
+                    {
+                        pages.map((page, i) => {
+                            return (
+                                <li className={ cls.pagination__item } key={ i.toString() }>
+                                    <span
+                                        className={
+                                            props.currentPage === page
+                                                ? `${cls.pagination__link} ${cls.active}`
+                                                : `${cls.pagination__link}`
+                                        }
+                                        onClick={ (e) => props.onPageChanged(page) }
+                                    >{ page }</span>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+            { props.users.map((el, i) => {
+                return <div className={ cls.user } key={ el.id }>
+                    <div className={ cls.info }>
+                        <div className={ cls.image }>
+                            <img src={ el.photos.small != null ? el.photos.small : avatar } alt='' />
+                        </div>
+                        { el.followed
+                            ? <button onClick={ () => props.unfollow(el.id) }>Unfollow</button>
+                            : <button onClick={ () => props.follow(el.id) }>Follow</button>
+                        }
+                    </div>
+                    <div className={ cls.content }>
+                        <div className={ cls.name }>{ el.name }</div>
+                        <div className={ cls.status }>{ el.status }</div>
+                    </div>
+                    <div className={ cls.location }>
+                        <p className={ cls.country }>{ 'el.location.country' }</p>
+                        <p className={ cls.city }>{ 'el.location.city' }</p>
+                    </div>
+                </div>
+            }) }
+        </div>
+    );
+};
+
+export default Users;
+
+
+
+
+/*import React from 'react';
 import * as axios from 'axios';
 import avatar from '../../assets/images/user.png';
 import cls from './Users.module.css';
@@ -58,7 +127,7 @@ class Users extends React.Component {
                                         onClick={ (e) => this.onPageChanged(page) }
                                     >{ page }</span>
                                 </li>
-                                /*return <li
+                                /!*return <li
                                     key={ i.toString() }
                                     className={
                                         this.props.currentPage === page
@@ -66,8 +135,8 @@ class Users extends React.Component {
                                             : `${cls.pagination__link}`
                                     }
                                     onClick={ () => this.props.setCurrentPage(page) }
-                                >{ page }</li>*/
-                                /*return <li className={ cls.pagination__item } key={ i.toString() }>
+                                >{ page }</li>*!/
+                                /!*return <li className={ cls.pagination__item } key={ i.toString() }>
                                     <a
                                         href='?page=1'
                                         className={
@@ -77,7 +146,7 @@ class Users extends React.Component {
                                         }
                                         onClick={ () => this.props.setCurrentPage(page) }
                                     >{ page }</a>
-                                </li>*/
+                                </li>*!/
                             })
                         }
                     </ul>
@@ -108,7 +177,7 @@ class Users extends React.Component {
     }
 }
 
-export default Users;
+export default Users;*/
 
 
 /*
