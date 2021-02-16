@@ -20,7 +20,7 @@ const Info = (props) => {
 	let socialsElements = [];
 
 	for (let [key, value] of Object.entries(props.profile.contacts)) {
-		if (socials.includes(key)) {
+		if (value && socials.includes(key)) {
 			socialsElements.push(
 				<li className={ cls.socials__item } key={ key }>
 					<a
@@ -62,7 +62,7 @@ const Info = (props) => {
 						: null
 					}
 					{
-						socialsElements
+						socialsElements.length > 0
 							? <div className={ cls.socials }>
 								<ul className={ cls.socials__list }>
 									{ socialsElements }
