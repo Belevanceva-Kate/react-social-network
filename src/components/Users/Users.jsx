@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
+import { followAPI } from '../../api/api';
 import cls from './Users.module.css';
 import avatar from '../../assets/images/user.png';
-import * as axios from "axios";
 
 let Users = (props) => {
 
@@ -49,31 +49,19 @@ let Users = (props) => {
                         </NavLink>
                         { el.followed
                             ? <button onClick={ () => {
-                                axios
-                                    .delete(`https://social-network.samuraijs.com/api/1.0/follow/${ el.id }`, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '5b4ab0c6-f0f2-4e8e-afd1-f0b14d3bbc25'
-                                        }
-                                    })
-                                    .then(response => {
+                                followAPI.unfollow(el.id)
+                                    .then(data => {
                                         // сервер подтвердил, что подписка произошла
-                                        if (response.data.resultCode === 0) {
+                                        if (data.resultCode === 0) {
                                             props.unfollow(el.id)
                                         }
                                     });
                             } }>Unfollow</button>
                             : <button onClick={ () => {
-                                axios
-                                    .post(`https://social-network.samuraijs.com/api/1.0/follow/${ el.id }`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '5b4ab0c6-f0f2-4e8e-afd1-f0b14d3bbc25'
-                                        }
-                                    })
-                                    .then(response => {
+                                followAPI.follow(el.id)
+                                    .then(data => {
                                         // сервер подтвердил, что подписка произошла
-                                        if (response.data.resultCode === 0) {
+                                        if (data.resultCode === 0) {
                                             props.follow(el.id)
                                         }
                                     });
