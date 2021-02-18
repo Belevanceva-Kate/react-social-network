@@ -48,24 +48,32 @@ let Users = (props) => {
                             </div>
                         </NavLink>
                         { el.followed
-                            ? <button onClick={ () => {
-                                followAPI.unfollow(el.id)
-                                    .then(data => {
-                                        // сервер подтвердил, что подписка произошла
-                                        if (data.resultCode === 0) {
-                                            props.unfollow(el.id)
-                                        }
-                                    });
-                            } }>Unfollow</button>
-                            : <button onClick={ () => {
-                                followAPI.follow(el.id)
-                                    .then(data => {
-                                        // сервер подтвердил, что подписка произошла
-                                        if (data.resultCode === 0) {
-                                            props.follow(el.id)
-                                        }
-                                    });
-                            } }>Follow</button>
+                            ? <button
+                                disabled={ props.followingInProgress.some(id => id === el.id) }
+                                onClick={ () => {
+                                    props.toggleFollowingInProgress(true, el.id);
+                                    followAPI.unfollow(el.id)
+                                        .then(data => {
+                                            // сервер подтвердил, что подписка произошла
+                                            if (data.resultCode === 0) {
+                                                props.unfollow(el.id)
+                                            }
+                                            props.toggleFollowingInProgress(false, el.id);
+                                        });
+                                } }>Unfollow</button>
+                            : <button
+                                disabled={ props.followingInProgress.some(id => id === el.id) }
+                                onClick={ () => {
+                                    props.toggleFollowingInProgress(true, el.id);
+                                    followAPI.follow(el.id)
+                                        .then(data => {
+                                            // сервер подтвердил, что подписка произошла
+                                            if (data.resultCode === 0) {
+                                                props.follow(el.id)
+                                            }
+                                            props.toggleFollowingInProgress(false, el.id);
+                                        });
+                                } }>Follow</button>
                         }
                     </div>
                     <div className={ cls.content }>

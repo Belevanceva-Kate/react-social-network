@@ -4,21 +4,15 @@ const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const TOGGLE_FOLLOWING_IN_PROGRESS = 'TOGGLE-FOLLOWING-IN-PROGRESS';
 
 let initialState = {
-    users: [
-        /*{ id: 1, img:'https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png', fullName: 'Dima', status: 'I am a boss', location: { country: 'Belarus', city: 'Minsk' }, followed: false },
-        { id: 2, img:'https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png', fullName: 'Andrey', status: 'I am a boss too', location: { country: 'Russia', city: 'Moscow' }, followed: false },
-        { id: 3, img:'https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png', fullName: 'Sveta', status: 'I am a boss too', location: { country: 'Kyiv', city: 'Ukraine' }, followed: true },
-        { id: 4, img:'https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png', fullName: 'Sasha', status: 'I like football', location: { country: 'Belarus', city: 'Minsk' }, followed: false },
-        { id: 5, img:'https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png', fullName: 'Viktor', status: 'I am a boss', location: { country: 'Belarus', city: 'Minsk' }, followed: true },
-        { id: 6, img:'https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png', fullName: 'Valera', status: 'I am a boss', location: { country: 'Belarus', city: 'Minsk' }, followed: false },
-        { id: 7, img:'https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png', fullName: 'Alex', status: 'I am a boss', location: { country: 'Belarus', city: 'Minsk' }, followed: false },*/
-    ],
+    users: [],
     pageSize: 5,
     totalCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: []
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -56,6 +50,14 @@ const usersReducer = (state = initialState, action) => {
             };
         case TOGGLE_IS_FETCHING:
             return { ...state, isFetching: action.isFetching };
+        case TOGGLE_FOLLOWING_IN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFollowingInProgress
+                    ? [ ...state.followingInProgress, action.userId ]
+                    // фильтрация вернет нам новый массив, деструктуриз. не нужна
+                    : state.followingInProgress.filter(id => id != action.userId)
+            };
         default:
             return state;
     }
@@ -78,5 +80,8 @@ export const unfollow = (userId) =>
 
 export const toggleIsFetching = (isFetching) =>
     ({ type: TOGGLE_IS_FETCHING, isFetching });
+
+export const toggleFollowingInProgress = (isFollowingInProgress, userId) =>
+    ({ type: TOGGLE_FOLLOWING_IN_PROGRESS, isFollowingInProgress, userId });
 
 export default usersReducer;
