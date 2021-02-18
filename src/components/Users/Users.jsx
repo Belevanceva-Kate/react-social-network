@@ -50,30 +50,12 @@ let Users = (props) => {
                         { el.followed
                             ? <button
                                 disabled={ props.followingInProgress.some(id => id === el.id) }
-                                onClick={ () => {
-                                    props.toggleFollowingInProgress(true, el.id);
-                                    followAPI.unfollow(el.id)
-                                        .then(data => {
-                                            // сервер подтвердил, что подписка произошла
-                                            if (data.resultCode === 0) {
-                                                props.unfollow(el.id)
-                                            }
-                                            props.toggleFollowingInProgress(false, el.id);
-                                        });
-                                } }>Unfollow</button>
+                                onClick={ () => { props.unfollow(el.id); } }
+                            >Unfollow</button>
                             : <button
                                 disabled={ props.followingInProgress.some(id => id === el.id) }
-                                onClick={ () => {
-                                    props.toggleFollowingInProgress(true, el.id);
-                                    followAPI.follow(el.id)
-                                        .then(data => {
-                                            // сервер подтвердил, что подписка произошла
-                                            if (data.resultCode === 0) {
-                                                props.follow(el.id)
-                                            }
-                                            props.toggleFollowingInProgress(false, el.id);
-                                        });
-                                } }>Follow</button>
+                                onClick={ () => { props.follow(el.id); } }
+                            >Follow</button>
                         }
                     </div>
                     <div className={ cls.content }>

@@ -1,3 +1,5 @@
+import { followAPI, usersAPI } from '../../api/api';
+
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
@@ -63,6 +65,8 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
+/* Action Creators */
+
 export const setUsers = (users) =>
     ({ type: SET_USERS, users });
 
@@ -72,10 +76,10 @@ export const setCurrentPage = (page) =>
 export const setTotalCount = (count) =>
     ({ type: SET_TOTAL_COUNT, count });
 
-export const follow = (userId) =>
+export const followUser = (userId) =>
     ({ type: FOLLOW, userId });
 
-export const unfollow = (userId) =>
+export const unfollowUser = (userId) =>
     ({ type: UNFOLLOW, userId });
 
 export const toggleIsFetching = (isFetching) =>
@@ -83,5 +87,49 @@ export const toggleIsFetching = (isFetching) =>
 
 export const toggleFollowingInProgress = (isFollowingInProgress, userId) =>
     ({ type: TOGGLE_FOLLOWING_IN_PROGRESS, isFollowingInProgress, userId });
+
+/* Thunk Creators */
+
+export const getUsers = (currentPage, pageSize) => {
+    // возвращаем thunk. замыкание
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalCount(data.totalCount));
+            });
+    }
+}
+
+export const follow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        followAPI.follow(userId)
+            .then(data => {
+                // сервер подтвердил, что подписка произошла
+                if (data.resultCode === 0) {
+                    dispatch(followUser(userId))
+                }
+                dispatch(toggleFollowingInProgress(false, userId));
+            });
+    }
+}
+
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        followAPI.unfollow(userId)
+            .then(data => {
+                // сервер подтвердил, что подписка произошла
+                if (data.resultCode === 0) {
+                    dispatch(unfollowUser(userId))
+                }
+                dispatch(toggleFollowingInProgress(false, userId));
+            });
+    }
+}
 
 export default usersReducer;

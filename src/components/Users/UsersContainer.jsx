@@ -1,42 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    setUsers,
     setCurrentPage,
-    setTotalCount,
+    getUsers,
     follow,
-    unfollow,
-    toggleIsFetching,
-    toggleFollowingInProgress
+    unfollow
 } from '../../redux/reducers/users';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
-import { usersAPI } from '../../api/api';
 
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalCount(data.totalCount);
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (page) => {
         this.props.setCurrentPage(page);
-        this.props.toggleIsFetching(true);
-
-        usersAPI.getUsers(page, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-            });
+        this.props.getUsers(page, this.props.pageSize);
     }
 
     render() {
@@ -52,7 +35,7 @@ class UsersContainer extends React.Component {
                     unfollow={ this.props.unfollow }
                     onPageChanged={ this.onPageChanged }
                     followingInProgress={ this.props.followingInProgress }
-                    toggleFollowingInProgress={ this.props.toggleFollowingInProgress }
+                    // toggleFollowingInProgress={ this.props.toggleFollowingInProgress }
                 />
             </>
         );
@@ -73,11 +56,8 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    setUsers,
     setCurrentPage,
-    setTotalCount,
+    getUsers,
     follow,
-    unfollow,
-    toggleIsFetching,
-    toggleFollowingInProgress
+    unfollow
 })(UsersContainer);
