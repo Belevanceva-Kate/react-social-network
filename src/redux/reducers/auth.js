@@ -1,3 +1,5 @@
+import { authAPI, profileAPI } from '../../api/api';
+
 const SET_AUTH_DATA = 'SET-AUTH-DATA';
 const SET_USER_DATA = 'SET-USER-DATA';
 
@@ -37,5 +39,21 @@ export const setAuthData = (userId, email, login) =>
 
 export const setUserData = (avatar) =>
     ({ type: SET_USER_DATA, data: { avatar } });
+
+export const getAuthData = () => (dispatch) => {
+    authAPI.getAuthMe()
+        .then((data) => {
+            // 0 - success, other number - error
+            if (data.resultCode === 0) {
+                let { id: userId, email, login } = data.data;
+                dispatch(setAuthData(userId, email, login));
+
+                profileAPI.getProfile(userId)
+                    .then((data) => {
+                        dispatch(setUserData(data.photos.small));
+                    });
+            }
+        });
+}
 
 export default authReducer;

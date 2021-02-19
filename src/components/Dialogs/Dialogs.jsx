@@ -1,3 +1,4 @@
+import { Redirect } from 'react-router';
 import Chat from './Chat/Chat';
 import Message from './Message/Message';
 import cls from './Dialogs.module.css';
@@ -30,6 +31,8 @@ const Dialogs = (props) => {
 		let text = e.target.value;
 		props.updateMessageContent(text);
 	}
+
+	if (!props.isAuth) return <Redirect to={ '/login' } />
 
 	return (
 		<div className={ cls.dialogs }>

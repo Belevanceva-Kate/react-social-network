@@ -49,13 +49,11 @@ export const actionCreatorAddPost = () =>
 export const actionCreatorUpdateNewPostContent = (text) =>
     ({ type: UPDATE_NEW_POST_CONTENT, postContent: text })
 
-export const getProfile = (userId) => {
-    return (dispatch) => {
-        profileAPI.getProfile(userId)
-            .then(data => {
-                dispatch(setProfile(data));
-            });
-    }
+export const getProfile = (userId) => (dispatch) => {
+    profileAPI.getProfile(userId)
+        .then(data => {
+            dispatch(setProfile(data));
+        });
 }
 
 export default profileReducer;
