@@ -1,5 +1,7 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import {
     setCurrentPage,
     getUsers,
@@ -35,12 +37,13 @@ class UsersContainer extends React.Component {
                     unfollow={ this.props.unfollow }
                     onPageChanged={ this.onPageChanged }
                     followingInProgress={ this.props.followingInProgress }
-                    // toggleFollowingInProgress={ this.props.toggleFollowingInProgress }
                 />
             </>
         );
     }
 }
+
+let AuthRedirectComponent = withAuthRedirect(UsersContainer);
 
 
 
@@ -55,9 +58,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {
-    setCurrentPage,
-    getUsers,
-    follow,
-    unfollow
-})(UsersContainer);
+export default compose(
+    connect(mapStateToProps, {
+        setCurrentPage,
+        getUsers,
+        follow,
+        unfollow
+    }),
+    withAuthRedirect
+)(UsersContainer);
