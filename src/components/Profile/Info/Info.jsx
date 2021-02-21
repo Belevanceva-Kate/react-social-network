@@ -1,5 +1,6 @@
-import cls from './Info.module.css';
 import Preloader from '../../common/Preloader/Preloader';
+import Status from './Status/Status';
+import cls from './Info.module.css';
 import avatar from '../../../assets/images/user.png';
 
 // import socialFacebook from '../../../assets/images/socials/facebook.svg';
@@ -40,12 +41,12 @@ const Info = (props) => {
 
 	return (
 		<div className={ cls.info }>
-			<div className={ cls.cover }>
+			{/*<div className={ cls.cover }>
 				<img 
 					src='https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg' 
 					alt='banner'
 				/>
-			</div>
+			</div>*/}
 			<div className={ cls.content }>
 				<div className={ cls.avatar }>
 					{
@@ -61,6 +62,7 @@ const Info = (props) => {
 						? <div className={ cls.about }>{ props.profile.aboutMe }</div>
 						: null
 					}
+					<Status status='Hi' />
 					{
 						socialsElements.length > 0
 							? <div className={ cls.socials }>
