@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form'
 import authReducer from './reducers/auth';
 import profileReducer from './reducers/profile';
 import dialogsReducer from './reducers/dialogs';
@@ -11,7 +12,8 @@ let reducers = combineReducers({
     profile: profileReducer,
     dialogs: dialogsReducer,
     sidebar: sidebarReducer,
-    users: usersReducer
+    users: usersReducer,
+    form: formReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

@@ -62,7 +62,11 @@ const Info = (props) => {
 						? <div className={ cls.about }>{ props.profile.aboutMe }</div>
 						: null
 					}
-					<Status status='Hi' />
+					{
+						props.status
+						? <Status status={ props.status } updateStatus={ props.updateStatus } />
+						: null
+					}
 					{
 						socialsElements.length > 0
 							? <div className={ cls.socials }>
