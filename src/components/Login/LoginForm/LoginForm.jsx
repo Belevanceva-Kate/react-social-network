@@ -1,5 +1,5 @@
-import cls from './LoginForm.module.css';
 import { Field } from 'redux-form';
+import cls from './LoginForm.module.css';
 
 const LoginForm = (props) => {
     return (

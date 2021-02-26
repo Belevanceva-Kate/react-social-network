@@ -56,4 +56,20 @@ export const getAuthData = () => (dispatch) => {
         });
 }
 
+export const login = (properties) => (dispatch) => {
+    authAPI.login(properties)
+        .then((data) => {
+            // 0 - success, other number - error
+            if (data.resultCode === 0) {
+                /*let { id: userId, email, login } = data.data;
+                dispatch(setAuthData(userId, email, login));
+
+                profileAPI.getProfile(userId)
+                    .then((data) => {
+                        dispatch(setUserData(data.photos.small));
+                    });*/
+            }
+        });
+}
+
 export default authReducer;

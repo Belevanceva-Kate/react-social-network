@@ -1,5 +1,7 @@
 import Post from './Post/Post';
+import PostForm from './PostForm/PostForm';
 import cls from './Posts.module.css';
+import { reduxForm } from 'redux-form';
 
 const Posts = (props) => {
 
@@ -7,27 +9,14 @@ const Posts = (props) => {
 		return <Post message={ el.message } likesCount={ el.likesCount } key={ i.toString() } />
 	});
 
-	let addPost = () => {
-		props.addPost();
-	};
-
-	let updatePostContent = (e) => {
-		let text = e.target.value;
-		props.updateNewPostText(text);
-	};
+	const onFormSubmit = (values) => {
+		props.addPost(values.post);
+	}
 
 	return (
 		<div className={ cls.postsBlock }>
-			<h3>My posts</h3>	
-			<div className={ cls.form }>
-				<textarea
-					rows={ 4 } 
-					onChange={ updatePostContent } 
-					value={ props.newPostContent } 
-				/>
-				<br />
-				<button onClick={ addPost }>Add post</button>
-			</div>
+			<h3>My posts</h3>
+			<PostReduxForm onSubmit={ onFormSubmit } />
 			<div className={ cls.posts }>
 				<ul className={ cls.list }>
 					{ postElements }
@@ -36,5 +25,9 @@ const Posts = (props) => {
 		</div>
 	);
 }
+
+const PostReduxForm = reduxForm({
+	form: 'post'
+})(PostForm);
 
 export default Posts;

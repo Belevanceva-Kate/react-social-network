@@ -1,6 +1,7 @@
-import { Redirect } from 'react-router';
+import { reduxForm } from 'redux-form';
 import Chat from './Chat/Chat';
 import Message from './Message/Message';
+import MessageForm from './MessageForm/MessageForm';
 import cls from './Dialogs.module.css';
 
 const Dialogs = (props) => {
@@ -23,13 +24,8 @@ const Dialogs = (props) => {
 		/>
 	);
 
-	let addMessage = () => {
-		props.addMessage();
-	}
-
-	let updateMessageContent = (e) => {
-		let text = e.target.value;
-		props.updateMessageContent(text);
+	const onFormSubmit = (values) => {
+		props.addMessage(values.message);
 	}
 
 	return (
@@ -41,18 +37,14 @@ const Dialogs = (props) => {
 				<div className={ cls.messages }>
 					{ messageElements }
 				</div>
-				<div className={ cls.form }>
-					<textarea
-						rows={ 4 } 
-						onChange={ updateMessageContent }
-						value={ props.dialogs.newMessageContent }
-					/>
-					<br />
-					<button onClick={ addMessage }>Send</button>
-				</div>
+				<MessageReduxForm onSubmit={ onFormSubmit } />
 			</div>
 		</div>
 	)
 }
+
+const MessageReduxForm = reduxForm({
+	form: 'message'
+})(MessageForm);
 
 export default Dialogs;
