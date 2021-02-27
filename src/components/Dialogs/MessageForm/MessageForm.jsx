@@ -1,4 +1,6 @@
-import { Field } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
+import { Textarea } from '../../common/FormControls/FormControls';
+import { maxLength, required } from '../../../utils/validators/validators';
 import cls from './MessageForm.module.css';
 
 const MessageForm = (props) => {
@@ -6,10 +8,11 @@ const MessageForm = (props) => {
         <div className={ cls.form }>
             <form onSubmit={ props.handleSubmit }>
                 <Field
-                    component={ 'textarea' }
+                    component={ Textarea }
                     name={ 'message' }
                     rows='4'
                     placeholder='Add new message'
+                    validate={[ required, maxLength150 ]}
                 />
                 <br />
                 <button>Send</button>
@@ -18,4 +21,8 @@ const MessageForm = (props) => {
     );
 }
 
-export default MessageForm;
+const maxLength150 = maxLength(150);
+
+export default reduxForm({
+    form: 'message'
+})(MessageForm);

@@ -1,4 +1,3 @@
-import { reduxForm } from 'redux-form';
 import Chat from './Chat/Chat';
 import Message from './Message/Message';
 import MessageForm from './MessageForm/MessageForm';
@@ -37,14 +36,10 @@ const Dialogs = (props) => {
 				<div className={ cls.messages }>
 					{ messageElements }
 				</div>
-				<MessageReduxForm onSubmit={ onFormSubmit } />
+				<MessageForm onSubmit={ onFormSubmit } />
 			</div>
 		</div>
 	)
 }
-
-const MessageReduxForm = reduxForm({
-	form: 'message'
-})(MessageForm);
 
 export default Dialogs;

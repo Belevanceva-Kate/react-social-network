@@ -1,4 +1,6 @@
-import { Field } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
+import { Input } from '../../common/FormControls/FormControls';
+import { required } from '../../../utils/validators/validators';
 import cls from './LoginForm.module.css';
 
 const LoginForm = (props) => {
@@ -7,19 +9,21 @@ const LoginForm = (props) => {
             <form onSubmit={ props.handleSubmit }>
                 <div>
                     <Field
-                        component={ 'input' }
+                        component={ Input }
                         name={ 'login' }
-                        placeholder='Login' />
+                        placeholder='Login'
+                        validate={[ required ]} />
                 </div>
                 <div>
                     <Field
-                        component={ 'input' }
+                        component={ Input }
                         name={ 'password' }
-                        placeholder={ 'Password' } />
+                        placeholder={ 'Password' }
+                        validate={[ required ]} />
                 </div>
                 <div>
                     <Field
-                        component={ 'input' }
+                        component={ Input }
                         name={ 'rememberMe' }
                         type={ 'checkbox' } /> remember me
                 </div>
@@ -31,4 +35,6 @@ const LoginForm = (props) => {
     );
 }
 
-export default LoginForm;
+export default reduxForm({
+    form: 'login'
+})(LoginForm);
