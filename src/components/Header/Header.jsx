@@ -22,6 +22,7 @@ const Header = (props) => {
 									</div>
 									: null
 							}
+							<button onClick={ props.logout }>Logout</button>
 						</div>
 						: <NavLink to={ '/login' }>Login</NavLink>
 				}

@@ -1,4 +1,5 @@
 import { authAPI, profileAPI } from '../../api/api';
+import { stopSubmit } from 'redux-form';
 
 const SET_AUTH_DATA = 'SET-AUTH-DATA';
 const SET_USER_DATA = 'SET-USER-DATA';
@@ -18,8 +19,7 @@ const authReducer = (state = initialState, action) => {
             // деструктуризация объекта action.data. склеиваем из 2х объектов один
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.data
             }
         case SET_USER_DATA:
             return {
@@ -31,11 +31,8 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-// export const setAuthData = (data) =>
-//     ({ type: SET_USER_DATA, data });
-
-export const setAuthData = (userId, email, login) =>
-    ({ type: SET_AUTH_DATA, data: { userId, email, login } });
+export const setAuthData = (userId, email, login, isAuth) =>
+    ({ type: SET_AUTH_DATA, data: { userId, email, login, isAuth } });
 
 export const setUserData = (avatar) =>
     ({ type: SET_USER_DATA, data: { avatar } });
@@ -46,7 +43,7 @@ export const getAuthData = () => (dispatch) => {
             // 0 - success, other number - error
             if (data.resultCode === 0) {
                 let { id: userId, email, login } = data.data;
-                dispatch(setAuthData(userId, email, login));
+                dispatch(setAuthData(userId, email, login, true));
 
                 profileAPI.getProfile(userId)
                     .then((data) => {
@@ -56,18 +53,24 @@ export const getAuthData = () => (dispatch) => {
         });
 }
 
-export const login = (properties) => (dispatch) => {
-    authAPI.login(properties)
+export const login = (email, password, rememberMe) => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
         .then((data) => {
-            // 0 - success, other number - error
             if (data.resultCode === 0) {
-                /*let { id: userId, email, login } = data.data;
-                dispatch(setAuthData(userId, email, login));
+                dispatch(getAuthData());
+            }
+            else {
+                let message = data.messages.length > 0 ? data.messages[0] : 'Error';
+                dispatch(stopSubmit('login', { _error: message }));
+            }
+        });
+}
 
-                profileAPI.getProfile(userId)
-                    .then((data) => {
-                        dispatch(setUserData(data.photos.small));
-                    });*/
+export const logout = () => (dispatch) => {
+    authAPI.logout()
+        .then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthData(null, null, null, false));
             }
         });
 }

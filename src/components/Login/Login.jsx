@@ -1,9 +1,16 @@
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { login } from '../../redux/reducers/auth';
 import LoginForm from './LoginForm/LoginForm';
 import cls from './Login.module.css';
 
 const Login = (props) => {
     const onFormSubmit = (values) => {
-        console.log(values);
+        props.login(values.email, values.password, values.rememberMe);
+    }
+
+    if (props.isAuth) {
+        return <Redirect to={'/profile'} />;
     }
 
     return (
@@ -14,4 +21,8 @@ const Login = (props) => {
     );
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+});
+
+export default connect(mapStateToProps, { login })(Login);
