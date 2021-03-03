@@ -1,6 +1,16 @@
+// import { createSelector } from 'reselect';
+
 export const getUsers = (state) => {
-    return state.users.users
+    return state.users.users;
 }
+
+// export const getUsersSelector = (state) => {
+//     return getUsers(state).filter(u => true);
+// }
+//
+// export const getUsersSuperSelector = createSelector(getUsers, getIsFetching, (users, isFetching) => {
+//     return users.filter(u => true);
+// });
 
 export const getPageSize = (state) => {
     return state.users.pageSize;

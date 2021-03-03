@@ -16,7 +16,8 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers
+    getUsers,
+    // getUsersSuperSelector
 } from '../../selectors/users';
 
 
@@ -65,6 +66,7 @@ class UsersContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         users: getUsers(state),
+        // users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
         totalCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
