@@ -38,7 +38,7 @@ export const setUserData = (avatar) =>
     ({ type: SET_USER_DATA, data: { avatar } });
 
 export const getAuthData = () => (dispatch) => {
-    authAPI.getAuthMe()
+    return authAPI.getAuthMe()
         .then((data) => {
             // 0 - success, other number - error
             if (data.resultCode === 0) {

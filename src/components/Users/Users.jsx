@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import { followAPI } from '../../api/api';
 import cls from './Users.module.css';
 import avatar from '../../assets/images/user.png';
 
