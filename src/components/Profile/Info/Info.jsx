@@ -62,11 +62,12 @@ const Info = (props) => {
 						? <div className={ cls.about }>{ props.profile.aboutMe }</div>
 						: null
 					}
-					{
-						props.status
-						? <Status status={ props.status } updateStatus={ props.updateStatus } />
-						: null
-					}
+					{/*{*/}
+					{/*	props.status*/}
+					{/*	? <Status status={ props.status } updateStatus={ props.updateStatus } />*/}
+					{/*	: null*/}
+					{/*}*/}
+					<Status status={ props.status } updateStatus={ props.updateStatus } />
 					{
 						socialsElements.length > 0
 							? <div className={ cls.socials }>
