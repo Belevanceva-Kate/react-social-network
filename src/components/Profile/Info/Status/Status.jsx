@@ -19,11 +19,9 @@ const Status = (props) => {
         setStatus(e.currentTarget.value);
     }
 
-    // useEffect(() => {
-    //     if (status !== props.status) {
-    //         setStatus(props.status);
-    //     }
-    // });
+    useEffect(() => {
+        setStatus(props.status);
+    }, [props.status]);
 
     return (
         <div className={ cls.status }>
