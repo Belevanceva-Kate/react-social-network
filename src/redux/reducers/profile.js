@@ -63,7 +63,25 @@ export const setStatus = (status) =>
 
 /* Thunk Creators */
 
-export const getProfile = (userId) => (dispatch) => {
+export const getProfile = (userId) => async (dispatch) => {
+    let data = await profileAPI.getProfile(userId);
+    dispatch(setProfile(data));
+}
+
+export const getStatus = (userId) => async (dispatch) => {
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setStatus(data));
+}
+
+export const updateStatus = (status) => async (dispatch) => {
+    let data = await profileAPI.updateStatus(status);
+
+    if (data.resultCode === 0) {
+        dispatch(setStatus(status));
+    }
+}
+
+/*export const getProfile = (userId) => (dispatch) => {
     profileAPI.getProfile(userId)
         .then(data => {
             dispatch(setProfile(data));
@@ -84,6 +102,6 @@ export const updateStatus = (status) => (dispatch) => {
                 dispatch(setStatus(status));
             }
         });
-}
+}*/
 
 export default profileReducer;

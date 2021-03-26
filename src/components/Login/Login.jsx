@@ -5,11 +5,14 @@ import LoginForm from './LoginForm/LoginForm';
 import cls from './Login.module.css';
 
 const Login = (props) => {
+// const Login = ({ login, isAuth, }) => {
     const onFormSubmit = (values) => {
         props.login(values.email, values.password, values.rememberMe);
+        // login(values.email, values.password, values.rememberMe);
     }
 
     if (props.isAuth) {
+    // if (isAuth) {
         return <Redirect to={'/profile'} />;
     }
 

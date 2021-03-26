@@ -1,72 +1,27 @@
-import { NavLink } from 'react-router-dom';
+import Paginator from '../common/Paginator/Paginator';
+import User from './User/User';
 import cls from './Users.module.css';
-import avatar from '../../assets/images/user.png';
 
 let Users = (props) => {
-
-    let pagesCount = Math.ceil(props.totalCount / props.pageSize);
-    let pagesCount2 = 0;
-
-    pagesCount > 10 ? pagesCount2 = 10 : pagesCount2 = pagesCount;
-
-    let pages = [];
-
-    // for (let i = 1; i <= pagesCount; i++) {
-    for (let i = 1; i <= pagesCount2; i++) {
-        pages.push(i);
-    }
-
     return (
         <div className={ cls.users }>
-            <div className={ cls.pagination }>
-                <ul className={ cls.pagination__list }>
-                    {
-                        pages.map((page, i) => {
-                            return (
-                                <li className={ cls.pagination__item } key={ i.toString() }>
-                                    <span
-                                        className={
-                                            props.currentPage === page
-                                                ? `${cls.pagination__link} ${cls.active}`
-                                                : `${cls.pagination__link}`
-                                        }
-                                        onClick={ (e) => props.onPageChanged(page) }
-                                    >{ page }</span>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+            <Paginator
+                currentPage={ props.currentPage }
+                totalCount={ props.totalCount }
+                pageSize={ props.pageSize }
+                onPageChanged={ props.onPageChanged }
+            />
+            <div className={ cls.users }>
+                { props.users.map((user, i) => (
+                    <User
+                        key={ user.id }
+                        user={ user }
+                        followingInProgress={ props.followingInProgress }
+                        follow={ props.follow }
+                        unfollow={ props.unfollow }
+                    />
+                )) }
             </div>
-            { props.users.map((el, i) => {
-                return <div className={ cls.user } key={ el.id }>
-                    <div className={ cls.info }>
-                        <NavLink to={ '/profile/' + el.id }>
-                            <div className={ cls.image }>
-                                <img src={ el.photos.small != null ? el.photos.small : avatar } alt='' />
-                            </div>
-                        </NavLink>
-                        { el.followed
-                            ? <button
-                                disabled={ props.followingInProgress.some(id => id === el.id) }
-                                onClick={ () => { props.unfollow(el.id); } }
-                            >Unfollow</button>
-                            : <button
-                                disabled={ props.followingInProgress.some(id => id === el.id) }
-                                onClick={ () => { props.follow(el.id); } }
-                            >Follow</button>
-                        }
-                    </div>
-                    <div className={ cls.content }>
-                        <div className={ cls.name }>{ el.name }</div>
-                        <div className={ cls.status }>{ el.status }</div>
-                    </div>
-                    <div className={ cls.location }>
-                        <p className={ cls.country }>{ 'el.location.country' }</p>
-                        <p className={ cls.city }>{ 'el.location.city' }</p>
-                    </div>
-                </div>
-            }) }
         </div>
     );
 };
