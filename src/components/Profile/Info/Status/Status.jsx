@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import cls from './Status.module.css';
 
 const Status = (props) => {
@@ -49,9 +49,8 @@ const Status = (props) => {
     );
 }
 
-export default Status;
+export default Status;*/
 
-/*
 import React from 'react';
 import cls from './Status.module.css';
 
@@ -108,4 +107,4 @@ class Status extends React.Component {
     }
 }
 
-export default Status;*/
+export default Status;
