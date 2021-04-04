@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
-import {BrowserRouter, Route, withRouter} from 'react-router-dom';
+// import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { HashRouter, Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import {connect, Provider} from 'react-redux';
 import { initApp } from './redux/reducers/app';
@@ -64,6 +65,19 @@ const mapStateToProps = (state) => ({
 
 
 
+/*const SocialApp = (props) => {
+	return (
+		<BrowserRouter basename={ process.env.PUBLIC_URL }>
+			<Provider store={ store }>
+				<AppContainer />
+			</Provider>
+		</BrowserRouter>
+	);
+}*/
+
+
+
+
 let AppContainer = compose(
 	connect(mapStateToProps, { initApp }),
 	withRouter
@@ -71,11 +85,11 @@ let AppContainer = compose(
 
 const SocialApp = (props) => {
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<Provider store={ store }>
 				<AppContainer />
 			</Provider>
-		</BrowserRouter>
+		</HashRouter>
 	);
 }
 
