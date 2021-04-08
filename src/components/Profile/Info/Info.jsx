@@ -39,21 +39,18 @@ const Info = (props) => {
 		}
 	}
 
+	const onAvatarSelected = (e) => {
+		if (e.target.files.length) {
+			props.savePhoto(e.target.files[0]);
+		}
+	}
+
 	return (
 		<div className={ cls.info }>
-			{/*<div className={ cls.cover }>
-				<img 
-					src='https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg' 
-					alt='banner'
-				/>
-			</div>*/}
 			<div className={ cls.content }>
 				<div className={ cls.avatar }>
-					{
-						props.profile.photos.large
-							? <img src={ props.profile.photos.large } alt='avatar' />
-							: <img src={ avatar } alt='avatar' />
-					}
+					<img src={ props.profile.photos.large || avatar } alt='avatar' />
+					{ props.isOwner && <input type='file' onChange={ onAvatarSelected } /> }
 				</div>
 				<div className={ cls.description } >
 					<div className={ cls.name }>{ props.profile.fullName }</div>
@@ -62,11 +59,6 @@ const Info = (props) => {
 						? <div className={ cls.about }>{ props.profile.aboutMe }</div>
 						: null
 					}
-					{/*{*/}
-					{/*	props.status*/}
-					{/*	? <Status status={ props.status } updateStatus={ props.updateStatus } />*/}
-					{/*	: null*/}
-					{/*}*/}
 					<Status status={ props.status } updateStatus={ props.updateStatus } />
 					{
 						socialsElements.length > 0
