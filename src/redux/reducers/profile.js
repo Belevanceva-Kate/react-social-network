@@ -4,7 +4,7 @@ const SET_PROFILE = 'SET-PROFILE';
 const ADD_POST = 'ADD-POST';
 const DELETE_POST = 'DELETE-POST';
 const SET_STATUS = 'SET-STATUS';
-const SET_PHOTO = 'SAVE-PHOTO';
+const SET_PHOTO = 'SET-PHOTO';
 
 let initialState = {
     profile: null,
@@ -95,7 +95,7 @@ export const savePhoto = (file) => async (dispatch) => {
     let data = await profileAPI.savePhoto(file);
 
     if (data.resultCode === 0) {
-        dispatch(setPhoto(data.photos));
+        dispatch(setPhoto(data.data.photos));
     }
 }
 

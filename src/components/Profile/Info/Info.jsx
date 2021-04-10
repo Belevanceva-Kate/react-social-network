@@ -48,8 +48,10 @@ const Info = (props) => {
 	return (
 		<div className={ cls.info }>
 			<div className={ cls.content }>
-				<div className={ cls.avatar }>
-					<img src={ props.profile.photos.large || avatar } alt='avatar' />
+				<div className={ cls.picture }>
+					<div className={ cls.avatar }>
+						<img src={ props.profile.photos.large || avatar } alt='avatar' />
+					</div>
 					{ props.isOwner && <input type='file' onChange={ onAvatarSelected } /> }
 				</div>
 				<div className={ cls.description } >
