@@ -28,6 +28,7 @@ const Status = (props) => {
             {
                 !editMode &&
                 <div className={ cls.content }>
+                    <span><b>Status:</b> </span>
                     <span
                         onDoubleClick={ activateEditMode }
                     >{ props.status ? props.status : '---' }</span>
@@ -50,6 +51,10 @@ const Status = (props) => {
 }
 
 export default Status;*/
+
+
+
+
 
 import React from 'react';
 import cls from './Status.module.css';
@@ -85,6 +90,7 @@ class Status extends React.Component {
                 {
                     !this.state.editMode &&
                     <div className={ cls.content }>
+                        <span><b>Status:</b> </span>
                         <span
                             onDoubleClick={ this.activateEditMode }
                         >{ this.props.status || '---' }</span>
