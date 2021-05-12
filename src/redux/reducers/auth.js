@@ -1,8 +1,9 @@
-import { authAPI, profileAPI } from '../../api/api';
+import {authAPI, profileAPI, securityAPI} from '../../api/api';
 import { stopSubmit } from 'redux-form';
 
 const SET_AUTH_DATA = 'network/auth/SET-AUTH-DATA';
 const SET_USER_DATA = 'network/auth/SET-USER-DATA';
+const SET_CAPTCHA_URL = 'network/auth/GET-CAPTCHA-URL';
 
 let initialState = {
     userId: null,
@@ -10,7 +11,9 @@ let initialState = {
     login: null,
     isAuth: false,
     isFetching: false,
-    avatar: null
+    avatar: null,
+    // if captchaUrl - null, then captcha is not required
+    captchaUrl: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -26,6 +29,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 ...action.data
             }
+        case SET_CAPTCHA_URL:
+            return {
+                ...state,
+                ...action.data
+            }
         default:
             return state;
     }
@@ -36,6 +44,9 @@ export const setAuthData = (userId, email, login, isAuth) =>
 
 export const setUserData = (avatar) =>
     ({ type: SET_USER_DATA, data: { avatar } });
+
+export const setCaptchaUrl = (captchaUrl) =>
+    ({ type: SET_CAPTCHA_URL, data: { captchaUrl } });
 
 /*export const getAuthData = () => async (dispatch) => {
     let data = authAPI.getAuthMe();
@@ -52,16 +63,27 @@ export const setUserData = (avatar) =>
     }
 }*/
 
-export const login = (email, password, rememberMe) => async (dispatch) => {
-    let data = await authAPI.login(email, password, rememberMe);
+export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+    let data = await authAPI.login(email, password, rememberMe, captcha);
 
     if (data.resultCode === 0) {
         dispatch(getAuthData());
     }
     else {
+        if (data.resultCode === 10) {
+            dispatch(getCaptchaUrl());
+        }
+
         let message = data.messages.length > 0 ? data.messages[0] : 'Error';
         dispatch(stopSubmit('login', { _error: message }));
     }
+}
+
+export const getCaptchaUrl = () => async (dispatch) => {
+    let data = await securityAPI.getCaptchaUrl();
+    let captcha = data.url;
+
+    dispatch(setCaptchaUrl(captcha));
 }
 
 export const logout = () => async (dispatch) => {

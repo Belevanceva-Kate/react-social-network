@@ -11,7 +11,12 @@
     color: red;
 }
 
-.formСontrol .summaryError {
+/*.formСontrol .summaryError {*/
+/*    border: 1px solid red;*/
+/*    color: red;*/
+/*}*/
+
+.summaryError {
     border: 1px solid red;
     color: red;
 }

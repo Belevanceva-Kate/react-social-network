@@ -12,6 +12,10 @@ const LoginForm = (props) => {
                 { createField('email', 'Email', [required], Input) }
                 { createField('password', 'Password', [required], Input, { type: 'password' }) }
                 { createField('rememberMe', null, [], Input, { type: 'checkbox' }, 'remember me') }
+
+                { props.captchaUrl && <img src={ props.captchaUrl } alt='captcha' /> }
+                { props.captchaUrl && createField('captcha', 'Symbols from image', [required], Input, { }) }
+
                 {/*<div>*/}
                     {/*<Field
                         component={ Input }

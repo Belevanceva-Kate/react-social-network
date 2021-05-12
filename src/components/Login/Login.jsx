@@ -7,7 +7,7 @@ import cls from './Login.module.css';
 const Login = (props) => {
 // const Login = ({ login, isAuth, }) => {
     const onFormSubmit = (values) => {
-        props.login(values.email, values.password, values.rememberMe);
+        props.login(values.email, values.password, values.rememberMe, values.captcha);
         // login(values.email, values.password, values.rememberMe);
     }
 
@@ -19,13 +19,17 @@ const Login = (props) => {
     return (
         <div className={ cls.login }>
             <h1>Login</h1>
-            <LoginForm onSubmit={ onFormSubmit } />
+            <LoginForm
+                onSubmit={ onFormSubmit }
+                captchaUrl={ props.captchaUrl }
+            />
         </div>
     );
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 });
 
 export default connect(mapStateToProps, { login })(Login);
