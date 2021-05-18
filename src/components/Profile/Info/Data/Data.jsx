@@ -3,7 +3,7 @@ import Contact from '../Contact/Contact';
 
 const Data = ({ profile, isOwner, goToEditMode }) => {
     return (
-        <div>
+        <div className={ cls.data }>
             { isOwner && <button onClick={ goToEditMode }>Edit</button> }
 
             <div><b>Full name:</b> { profile.fullName }</div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
+import { Switch } from 'react-router';
+import { Redirect } from 'react-router-dom';
 // import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import { HashRouter, Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -23,8 +25,23 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 
 // class App extends React.Component {
 class App extends Component {
+
+	// catchAllUnhandledErrors = (promiseRejectionEvent) => {
+	catchAllUnhandledErrors = (reason, promise) => {
+		// alert(promiseRejectionEvent);
+		alert('some error occured');
+	}
+
 	componentDidMount() {
 		this.props.initApp();
+
+		// side effect
+		window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+	}
+
+	componentWillUnmount() {
+		// при умирании компоненты убираем мусор и отписываемся от события
+		window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
 	}
 
 	render() {
@@ -39,13 +56,17 @@ class App extends Component {
 				<main className='app-wrapper-content'>
 					{/*<Route path='/profile/:id?' render={() => <ProfileContainer/>}/>*/}
 					{/*<Route path='/dialogs' render={() => <DialogsContainer/>}/>*/}
-					<Route path='/profile/:id?' render={ withSuspense(ProfileContainer) } />
-					<Route path='/dialogs' render={ withSuspense(DialogsContainer) } />
-					<Route path='/news' component={News}/>
-					<Route path='/music' component={Music}/>
-					<Route path='/users' component={UsersContainer}/>
-					<Route path='/settings' component={Settings}/>
-					<Route path='/login' component={Login}/>
+					<Switch>
+						<Route exact path='/' render={ () => <Redirect to={ '/profile' } /> } />
+						<Route path='/profile/:id?' render={ withSuspense(ProfileContainer) } />
+						<Route path='/dialogs' render={ withSuspense(DialogsContainer) } />
+						<Route path='/news' component={News}/>
+						<Route path='/music' component={Music}/>
+						<Route path='/users' component={UsersContainer}/>
+						<Route path='/settings' component={Settings}/>
+						<Route path='/login' component={Login}/>
+						<Route path='/*' render={ () => <div>404 NOT FOUND</div> } />
+					</Switch>
 				</main>
 			</div>
 		);
